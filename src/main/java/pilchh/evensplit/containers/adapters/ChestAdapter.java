@@ -48,7 +48,7 @@ public class ChestAdapter implements ContainerAdapter {
                 return 0;
             }
 
-            long inserted = this.insert(item, amount, transaction);
+            long inserted = this.insert(item, extracted, transaction);
 
             if (inserted < extracted) {
                 long leftover = extracted - inserted;

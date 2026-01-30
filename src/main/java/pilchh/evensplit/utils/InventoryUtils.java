@@ -13,7 +13,7 @@ public class InventoryUtils {
         for (int i = 0; i < inventory.getContainerSize(); i++) {
             ItemStack stack = inventory.getItem(i);
 
-            if (stack.is(item.getItem())) {
+            if (ItemVariant.of(stack).equals(item)) {
                 total += stack.getCount();
             }
         }

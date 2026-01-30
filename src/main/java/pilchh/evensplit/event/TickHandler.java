@@ -12,12 +12,13 @@ import pilchh.evensplit.utils.BlockUtils;
 public class TickHandler {
     public static void register() {
         UseItemCallback.EVENT.register((player, world, hand) -> {
-            // Don't bother checking a non tracked player
-            if (!InteractionManager.TRACKER.isTracking(player)) {
+            // Don't bother checking a tracked player
+            if (InteractionManager.TRACKER.isTracking(player)) {
                 return InteractionResult.PASS;
             }
 
             // Start tracking the player
+            System.out.println("Starting track");
             ItemVariant heldItem = ItemVariant.of(player.getItemInHand(hand));
             InteractionManager.TRACKER.startTracking(player, heldItem);
 
@@ -38,6 +39,8 @@ public class TickHandler {
                 if (!player.isCrouching()) {
                     ItemVariant handItem = ItemVariant.of(player.getMainHandItem());
                     SplittingLogic.spread(player, handItem);
+                    InteractionManager.TRACKER.stopTracking(player);
+                    System.out.println("Stopping track");
                 }
             }
         });

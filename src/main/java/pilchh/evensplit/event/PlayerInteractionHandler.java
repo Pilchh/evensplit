@@ -26,6 +26,7 @@ public class PlayerInteractionHandler {
 
         if (player.isCrouching() && player.isHolding(item.getItem())) {
             interactedBlocks.put(playerUUID, new ArrayList<>());
+            activeUsers.add(playerUUID);
         }
     }
 
@@ -38,6 +39,7 @@ public class PlayerInteractionHandler {
         }
 
         interactedBlocks.remove(playerUUID);
+        activeUsers.remove(playerUUID);
     }
 
     public static boolean isTracking(Player player) {
@@ -45,7 +47,11 @@ public class PlayerInteractionHandler {
     }
 
     public static void addBlock(Player player, BlockEntity block) {
-        interactedBlocks.get(player.getUUID()).add(block);
+        UUID playerUUID = player.getUUID();
+
+        if (!interactedBlocks.get(playerUUID).contains(block)) {
+            interactedBlocks.get(playerUUID).add(block);
+        }
     }
 
     public static List<BlockEntity> getBlocks(Player player) {
