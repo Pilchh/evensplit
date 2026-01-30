@@ -2,7 +2,6 @@ package pilchh.evensplit;
 
 import net.fabricmc.api.ModInitializer;
 import pilchh.evensplit.event.CoalUseHandler;
-import pilchh.evensplit.items.ModItems;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,6 @@ public class Evensplit implements ModInitializer {
         // Proceed with mild caution.
 
         LOGGER.info("Hello Fabric world!");
-        ModItems.initialise();
         CoalUseHandler.register();
     }
 }
