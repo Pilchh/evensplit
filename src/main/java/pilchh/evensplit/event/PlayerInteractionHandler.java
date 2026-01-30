@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.UUID;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class PlayerInteractionHandler {
     private static final Set<UUID> activeUsers = new HashSet<>();
     private static Map<UUID, List<BlockEntity>> interactedBlocks = new HashMap<UUID, List<BlockEntity>>();
 
-    public static void startTracking(ServerPlayer player, ItemVariant item) {
+    public static void startTracking(Player player, ItemVariant item) {
         UUID playerUUID = player.getUUID();
 
         // User already tracked
@@ -29,7 +29,7 @@ public class PlayerInteractionHandler {
         }
     }
 
-    public static void stopTracking(ServerPlayer player) {
+    public static void stopTracking(Player player) {
         UUID playerUUID = player.getUUID();
 
         // User is not being tracked
@@ -40,15 +40,15 @@ public class PlayerInteractionHandler {
         interactedBlocks.remove(playerUUID);
     }
 
-    public static boolean isTracking(ServerPlayer player) {
+    public static boolean isTracking(Player player) {
         return activeUsers.contains(player.getUUID());
     }
 
-    public static void addBlock(ServerPlayer player, BlockEntity block) {
+    public static void addBlock(Player player, BlockEntity block) {
         interactedBlocks.get(player.getUUID()).add(block);
     }
 
-    public static List<BlockEntity> getBlocks(ServerPlayer player) {
+    public static List<BlockEntity> getBlocks(Player player) {
         return interactedBlocks.get(player.getUUID());
     }
 }

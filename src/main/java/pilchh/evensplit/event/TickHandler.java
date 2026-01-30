@@ -12,16 +12,14 @@ import pilchh.evensplit.utils.BlockUtils;
 public class TickHandler {
     public static void register() {
         UseItemCallback.EVENT.register((player, world, hand) -> {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-
             // Don't bother checking a non tracked player
-            if (!InteractionManager.TRACKER.isTracking(serverPlayer)) {
+            if (!InteractionManager.TRACKER.isTracking(player)) {
                 return InteractionResult.PASS;
             }
 
             // Start tracking the player
             ItemVariant heldItem = ItemVariant.of(player.getItemInHand(hand));
-            InteractionManager.TRACKER.startTracking(serverPlayer, heldItem);
+            InteractionManager.TRACKER.startTracking(player, heldItem);
 
             return InteractionResult.PASS;
         });
